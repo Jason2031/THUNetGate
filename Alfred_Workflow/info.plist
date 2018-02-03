@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>bundleid</key>
-	<string>com.thu.jason</string>
+	<string>com.thunet.jason</string>
 	<key>connections</key>
 	<dict/>
 	<key>createdby</key>
 	<string>Jason Wood</string>
 	<key>description</key>
-	<string>A THU net gate helper for login and logout</string>
+	<string>A THU Net Gate Helper for login and logout</string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
@@ -20,7 +20,7 @@
 			<key>config</key>
 			<dict>
 				<key>alfredfiltersresults</key>
-				<true/>
+				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
 				<integer>0</integer>
 				<key>argumenttrimmode</key>
@@ -28,7 +28,7 @@
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>escaping</key>
-				<integer>102</integer>
+				<integer>68</integer>
 				<key>keyword</key>
 				<string>thunet</string>
 				<key>queuedelaycustom</key>
@@ -42,15 +42,15 @@
 				<key>runningsubtext</key>
 				<string>working...</string>
 				<key>script</key>
-				<string></string>
+				<string>python THUNetGate.py {query}</string>
 				<key>scriptargtype</key>
-				<integer>1</integer>
+				<integer>0</integer>
 				<key>scriptfile</key>
 				<string></string>
 				<key>subtext</key>
-				<string>A THU net gate helper for login and logout</string>
+				<string>type in "i" for login, or "o" for logout, or "c" for checking traffic usage</string>
 				<key>title</key>
-				<string>THU net gate helper</string>
+				<string>THU Net Gate Helper</string>
 				<key>type</key>
 				<integer>0</integer>
 				<key>withspace</key>
@@ -59,7 +59,7 @@
 			<key>type</key>
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>16A1957C-6E5A-468B-94CE-3D4DEA2BF2DD</string>
+			<string>A06BE7F6-8503-434F-9423-AB43FB124611</string>
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
@@ -68,12 +68,12 @@
 	<string></string>
 	<key>uidata</key>
 	<dict>
-		<key>16A1957C-6E5A-468B-94CE-3D4DEA2BF2DD</key>
+		<key>A06BE7F6-8503-434F-9423-AB43FB124611</key>
 		<dict>
 			<key>xpos</key>
-			<integer>120</integer>
+			<integer>200</integer>
 			<key>ypos</key>
-			<integer>150</integer>
+			<integer>130</integer>
 		</dict>
 	</dict>
 	<key>webaddress</key>
