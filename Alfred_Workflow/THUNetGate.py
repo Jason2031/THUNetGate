@@ -30,7 +30,8 @@ class THUNetGate:
             'ac_id': '1'
         }
         self.workflow.add_item(title=self.post(login_data))
-        self.workflow.add_item(title='Used traffic: ' + self.check())
+        msg = self.check()
+        self.workflow.add_item(title=msg if msg is not False else 'Login failed...')
         self.workflow.send_feedback()
 
     def logout(self):
@@ -38,16 +39,14 @@ class THUNetGate:
             'action': 'logout'
         }
         msg = self.check()
-        if msg == 'You are not online.':
+        self.workflow.add_item(title=self.post(logout_data))
+        if msg is not False:
             self.workflow.add_item(title=msg)
-        else:
-            self.workflow.add_item(title='Used traffic: ' + msg)
-            self.workflow.add_item(title=self.post(logout_data))
         self.workflow.send_feedback()
 
     def check_traffic(self):
         msg = self.check()
-        self.workflow.add_item(title=msg)
+        self.workflow.add_item(title=msg if msg is not False else 'You are not online.')
         self.workflow.send_feedback()
 
     @staticmethod
@@ -55,14 +54,14 @@ class THUNetGate:
         f = urllib.urlopen('http://net.tsinghua.edu.cn/rad_user_info.php')
         result = f.read().decode('utf-8')
         if result == '':
-            return 'You are not online.'
+            return False
         traffic = int(result.split(',')[6])
         if traffic >= 1000000000:
             traffic /= 1000000000.0
-            return '{}G'.format(round(traffic, 2))
+            return 'Traffic usage: {}G'.format(round(traffic, 5))
         else:
             traffic /= 1000000.0
-            return '{}M'.format(round(traffic, 2))
+            return 'Traffic usage: {}M'.format(round(traffic, 5))
 
 
 def main(workflow):

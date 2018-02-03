@@ -1,6 +1,7 @@
 import hashlib
 import sys
-import urllib
+import urllib.parse
+import urllib.request
 import json
 
 
@@ -30,12 +31,17 @@ class THUNetGate:
             'ac_id': '1'
         }
         print(self.post(login_data))
+        msg = self.check()
+        print(msg if msg is not False else 'Login failed...')
 
     def logout(self):
         logout_data = {
             'action': 'logout'
         }
+        msg = self.check()
         print(self.post(logout_data))
+        if msg is not False:
+            print(msg)
 
     @staticmethod
     def check():
@@ -43,15 +49,14 @@ class THUNetGate:
         f = urllib.request.urlopen(request)
         result = f.read().decode('utf-8')
         if result == '':
-            print('You are not online.')
-            return
+            return False
         traffic = int(result.split(',')[6])
         if traffic >= 1000000000:
             traffic /= 1000000000.0
-            print('{}G'.format(round(traffic, 2)))
+            return 'Traffic usage: {}G'.format(round(traffic, 5))
         else:
             traffic /= 1000000.0
-            print('{}M'.format(round(traffic, 2)))
+            return 'Traffic usage: {}M'.format(round(traffic, 5))
 
 
 def usage():
@@ -69,10 +74,11 @@ if __name__ == '__main__':
         if sys.argv[1] == 'o':
             net_gate.logout()
         elif sys.argv[1] == 'c':
-            net_gate.check()
+            usage = net_gate.check()
+            print(usage if usage is not False else 'You are not online.')
         elif sys.argv[1] == 'i':
-            with open('account.json') as f:
-                account = json.loads(f.read())
+            with open('account.json') as acc:
+                account = json.loads(acc.read())
                 net_gate.login(account['username'], account['password'])
     else:
         usage()
