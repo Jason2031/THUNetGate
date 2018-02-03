@@ -1,2 +1,3 @@
 A alfred workflow for THUNetGateHelper.
 
+Note that alfred does not support python3...
