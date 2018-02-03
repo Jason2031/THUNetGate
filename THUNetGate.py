@@ -57,9 +57,9 @@ class THUNetGate:
 def usage():
     print('''
     Usage: 
-    python THUNetGate.py login username password
-    or: python THUNetGate.py logout
-    or: python THUNetGate.py check
+    login: python THUNetGate.py i
+    logout: python THUNetGate.py o
+    check traffic usage: python THUNetGate.py c
     ''')
 
 
