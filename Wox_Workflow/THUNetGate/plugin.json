@@ -1,0 +1,12 @@
+{
+    "ID":"2f4e284e-76ce-45c3-aea2-b16f5e5c328f",
+    "ActionKeyword":"thunet",
+    "Name":"THU Net Gate Helper",
+    "Description":"A THU Net Gate Helper for login and logout",
+    "Author":"JasonWood",
+    "Version":"1.0",
+    "Language":"python",
+    "Website":"https://github.com/Wox-launche/Wox",
+    "IcoPath":"Images\\app.png",
+    "ExecuteFileName":"main.py"
+}
