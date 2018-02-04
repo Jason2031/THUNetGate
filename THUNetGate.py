@@ -1,7 +1,6 @@
 import hashlib
 import sys
-import urllib.parse
-import urllib.request
+import requests
 import json
 
 
@@ -18,10 +17,9 @@ class THUNetGate:
         return md5.hexdigest()
 
     def post(self, data):
-        post_data = urllib.parse.urlencode(data).encode('utf-8')
-        request = urllib.request.Request('{}do_login.php'.format(self.main_url), post_data)
-        f = urllib.request.urlopen(request)
-        return f.read().decode('utf-8')
+        request = requests.get('{}do_login.php'.format(self.main_url), params=data)
+        f = request.content
+        return f.decode('utf-8')
 
     def login(self, username='', password=''):
         login_data = {
@@ -30,24 +28,24 @@ class THUNetGate:
             'password': '{MD5_HEX}' + self.get_encrypted_pw(password),
             'ac_id': '1'
         }
-        print(self.post(login_data))
-        msg = self.check()
-        print(msg if msg is not False else 'Login failed...')
+        msg = self.post(login_data)
+        traffic = self.check()
+        msg += '\n' + (traffic if traffic is not False else 'Login failed...')
+        print(msg)
 
     def logout(self):
         logout_data = {
             'action': 'logout'
         }
         msg = self.check()
-        print(self.post(logout_data))
-        if msg is not False:
-            print(msg)
+        msg = self.post(logout_data) + ('\n' + msg if msg is not False else '')
+        print(msg)
 
     @staticmethod
     def check():
-        request = urllib.request.Request('http://net.tsinghua.edu.cn/rad_user_info.php')
-        f = urllib.request.urlopen(request)
-        result = f.read().decode('utf-8')
+        request = requests.get('http://net.tsinghua.edu.cn/rad_user_info.php')
+        f = request.content
+        result = f.decode('utf-8')
         if result == '':
             return False
         traffic = int(result.split(',')[6])
